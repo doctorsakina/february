@@ -1,4 +1,5 @@
-  <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -39,22 +40,28 @@ body {
   transform: scale(1.05);
 }
 
+/* Карточка */
 .card {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
   padding: 40px;
   border-radius: 25px;
   text-align: center;
-  color: white;
+  color: red;
   max-width: 400px;
-  animation: fadeIn 2s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.5s ease;
+  transform: translate(-50%, -50%) scale(0); /* скрыта */
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
   z-index: 1;
+}
+
+.card.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
 }
 
 h1 {
@@ -67,15 +74,11 @@ p {
   line-height: 1.6;
 }
 
+/* Сердечки */
 .heart {
   position: absolute;
   color: rgba(255,255,255,0.7);
   animation: float 6s infinite ease-in;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
 }
 
 @keyframes float {
@@ -106,17 +109,16 @@ p {
 </div>
 
 <script>
-// Конверт открывает карточку и запускает сердечки
 const envelope = document.getElementById('envelope');
 const card = document.getElementById('card');
 
 envelope.addEventListener('click', () => {
-  card.style.transform = 'translate(-50%, -50%) scale(1)';
+  card.classList.add('show'); // плавно показываем карточку
   envelope.style.display = 'none'; // скрываем конверт
   startHearts();
 });
 
-// Функция летающих сердечек (твоя существующая)
+// Летающие сердечки
 function startHearts() {
   function createHeart() {
     const heart = document.createElement("div");
