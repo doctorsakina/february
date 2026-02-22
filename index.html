@@ -1,31 +1,29 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>С 23 февраля ❤️</title>
-
 <style>
 body {
   margin: 0;
   height: 100vh;
-  background: #1a1a2e;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: hidden;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
 }
 
 /* Конверт */
 .envelope {
-  position: relative;
-  width: 200px;
+  position: absolute;
+  width: 220px;
   height: 120px;
   background: #f5f5f5;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +31,7 @@ body {
   font-weight: bold;
   font-size: 16px;
   text-align: center;
+  cursor: pointer;
   user-select: none;
   transition: transform 0.3s ease;
 }
@@ -40,12 +39,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Карточка с поздравлением */
 .card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
   padding: 40px;
@@ -53,9 +47,14 @@ body {
   text-align: center;
   color: white;
   max-width: 400px;
+  animation: fadeIn 2s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
   transition: transform 0.5s ease;
-  z-index: 2;
+  z-index: 1;
 }
 
 h1 {
@@ -68,40 +67,27 @@ p {
   line-height: 1.6;
 }
 
-/* Сердечки */
 .heart {
   position: absolute;
   color: rgba(255,255,255,0.7);
   animation: float 6s infinite ease-in;
 }
 
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
 @keyframes float {
   0% {transform: translateY(100vh) scale(1);}
   100% {transform: translateY(-10vh) scale(1.5);}
 }
-
-/* Фейерверк */
-.firework {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-  animation: explode 1s ease-out forwards;
-}
-@keyframes explode {
-  0% {transform: translate(0,0) scale(1); opacity: 1;}
-  100% {transform: translate(var(--x), var(--y)) scale(0); opacity: 0;}
-}
 </style>
 </head>
-
 <body>
 
 <!-- Конверт -->
-<div class="envelope" id="envelope">💌<br>От Сакиши для Бехзода</div>
+<div class="envelope" id="envelope">💌<br>От Сакиши для любимого Бехзода ❤️</div>
 
 <!-- Карточка -->
 <div class="card" id="card">
@@ -120,42 +106,17 @@ p {
 </div>
 
 <script>
-// Конверт открывает карточку и запускает фейерверк
+// Конверт открывает карточку и запускает сердечки
 const envelope = document.getElementById('envelope');
 const card = document.getElementById('card');
 
 envelope.addEventListener('click', () => {
   card.style.transform = 'translate(-50%, -50%) scale(1)';
-  launchFireworks();
-  startHearts();
   envelope.style.display = 'none'; // скрываем конверт
+  startHearts();
 });
 
-// Функция запуска фейерверка
-function launchFireworks() {
-  for (let i = 0; i < 50; i++) {
-    const firework = document.createElement('div');
-    firework.className = 'firework';
-    firework.style.background = getRandomColor();
-    const angle = Math.random() * 2 * Math.PI;
-    const distance = Math.random() * 150 + 50;
-    firework.style.setProperty('--x', distance * Math.cos(angle) + 'px');
-    firework.style.setProperty('--y', distance * Math.sin(angle) + 'px');
-    firework.style.left = '50%';
-    firework.style.top = '50%';
-    document.body.appendChild(firework);
-
-    setTimeout(() => firework.remove(), 1000);
-  }
-}
-
-// Разные цвета для фейерверка
-function getRandomColor() {
-  const colors = ['#ff3f3f', '#ffdc3f', '#3fff3f', '#3fdfff', '#9933ff'];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
-
-// Функция запуска летающих сердечек
+// Функция летающих сердечек (твоя существующая)
 function startHearts() {
   function createHeart() {
     const heart = document.createElement("div");
