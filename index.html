@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>С 23 февраля ❤️</title>
+
 <style>
 body {
   margin: 0;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: #1a1a2e;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Конверт */
@@ -39,7 +40,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Лопнувший конверт и поздравление */
+/* Карточка с поздравлением */
 .card {
   position: absolute;
   top: 50%;
@@ -52,19 +53,31 @@ body {
   text-align: center;
   color: white;
   max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   transition: transform 0.5s ease;
   z-index: 2;
 }
 
-/* Текст */
 h1 {
   font-size: 28px;
   margin-bottom: 20px;
 }
+
 p {
   font-size: 18px;
   line-height: 1.6;
+}
+
+/* Сердечки */
+.heart {
+  position: absolute;
+  color: rgba(255,255,255,0.7);
+  animation: float 6s infinite ease-in;
+}
+
+@keyframes float {
+  0% {transform: translateY(100vh) scale(1);}
+  100% {transform: translateY(-10vh) scale(1.5);}
 }
 
 /* Фейерверк */
@@ -84,16 +97,26 @@ p {
 }
 </style>
 </head>
+
 <body>
 
-<div class="envelope" id="envelope">💌<br>От Сакиши для Бехзодҷона</div>
+<!-- Конверт -->
+<div class="envelope" id="envelope">💌<br>От Сакиши для Бехзода</div>
 
+<!-- Карточка -->
 <div class="card" id="card">
   <h1>С 23 февраля, любимый ❤️</h1>
-  <p>Ты мой защитник, моя опора и моя сила.<br>
-  Настоящий мужчина — смелый, сильный и невероятно заботливый.<br>
-  Я горжусь тобой каждый день.<br>
-  Люблю тебя бесконечно ❤️</p>
+  <p>
+    Ты мой защитник, моя опора и моя сила.  
+    Настоящий мужчина — смелый, сильный и невероятно заботливый.  
+  </p>
+  <p>
+    Я горжусь тобой каждый день.  
+    Спасибо, что ты есть у меня.  
+  </p>
+  <p>
+    Люблю тебя бесконечно ❤️
+  </p>
 </div>
 
 <script>
@@ -104,6 +127,8 @@ const card = document.getElementById('card');
 envelope.addEventListener('click', () => {
   card.style.transform = 'translate(-50%, -50%) scale(1)';
   launchFireworks();
+  startHearts();
+  envelope.style.display = 'none'; // скрываем конверт
 });
 
 // Функция запуска фейерверка
@@ -120,15 +145,33 @@ function launchFireworks() {
     firework.style.top = '50%';
     document.body.appendChild(firework);
 
-    // Удаляем после анимации
     setTimeout(() => firework.remove(), 1000);
   }
 }
 
-// Разные цвета
+// Разные цвета для фейерверка
 function getRandomColor() {
   const colors = ['#ff3f3f', '#ffdc3f', '#3fff3f', '#3fdfff', '#9933ff'];
   return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Функция запуска летающих сердечек
+function startHearts() {
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+
+  setInterval(createHeart, 500);
 }
 </script>
 
