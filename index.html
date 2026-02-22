@@ -111,11 +111,14 @@ p {
 <script>
 const envelope = document.getElementById('envelope');
 const card = document.getElementById('card');
-
+  
+const music = new Audio('mp3cut.mp3'); // путь к твоему файлу
+  
 envelope.addEventListener('click', () => {
   card.classList.add('show'); // плавно показываем карточку
   envelope.style.display = 'none'; // скрываем конверт
   startHearts();
+  music.play(); // запускаем песню
 });
 
 // Летающие сердечки
@@ -126,7 +129,7 @@ function startHearts() {
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
     document.body.appendChild(heart);
 
     setTimeout(() => {
@@ -134,7 +137,7 @@ function startHearts() {
     }, 6000);
   }
 
-  setInterval(createHeart, 500);
+  setInterval(createHeart, 200);
 }
 </script>
 
